@@ -40,9 +40,12 @@ func load_game():
 			continue
 
 		# Get the data from the JSON object
-		var node_data = json.get_data()
+		var loaded_data = json.get_data()
+		if loaded_data.has("highscore"):
+			glob.highscore = loaded_data["highscore"]
+		#return(loaded_data)
+		
 
-		return(node_data)
 func unsave():
 	var save_dict = {
 		"highscore" : 0
@@ -53,3 +56,5 @@ func unsave():
 	var json_string = JSON.stringify(save_dict)
 	save_game.store_line(json_string)
 	pass
+
+

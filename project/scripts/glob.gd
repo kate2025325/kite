@@ -43,7 +43,7 @@ signal whoosh
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	highscore = save.load_game()["highscore"]
+	save.load_game()
 	connect("die", dead)
 	connect("go", start)
 	connect("title", menu)
