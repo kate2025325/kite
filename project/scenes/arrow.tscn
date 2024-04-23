@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://bom55x1wc1yo3"]
+
+[ext_resource type="Script" path="res://scripts/arrow.gd" id="1_vv6nn"]
+[ext_resource type="Script" path="res://scripts/fp1.gd" id="2_ov066"]
+
+[node name="arrow" type="CharacterBody2D"]
+z_index = 50
+position = Vector2(486, 436)
+collision_mask = 0
+script = ExtResource("1_vv6nn")
+
+[node name="shape" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="shape"]
+polygon = PackedVector2Array(40, 2.08165e-12, -40, 20, -20, 2.08165e-12, -40, -20)
+script = ExtResource("2_ov066")
+metadata/rad = 5.0
+
+[node name="Line2D" type="Line2D" parent="shape/Polygon2D"]
+closed = true
+width = 1.0
+default_color = Color(0.91, 0.439833, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="shape/Polygon2D"]
+closed = true
+width = 1.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(40, 2.08165e-12, -40, 20, -20, 2.08165e-12, -40, -20)

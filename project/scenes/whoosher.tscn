@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnrrm4vdraaua"]
+
+[ext_resource type="AudioStream" uid="uid://doqtm86qpdsx0" path="res://assets/woosh2.mp3" id="1_vddhu"]
+[ext_resource type="Script" path="res://scenes/audioplr.gd" id="2_jgxoi"]
+
+[node name="whoosher" type="AudioStreamPlayer"]
+stream = ExtResource("1_vddhu")
+script = ExtResource("2_jgxoi")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

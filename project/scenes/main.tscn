@@ -1,0 +1,760 @@
+[gd_scene load_steps=23 format=3 uid="uid://tf28l5hc1wb"]
+
+[ext_resource type="Script" path="res://scripts/scorebox.gd" id="1_2k40g"]
+[ext_resource type="FontFile" uid="uid://bay05t0m053l1" path="res://assets/typewriter.ttf" id="1_bh6dg"]
+[ext_resource type="Script" path="res://scripts/fp1.gd" id="2_c4oqt"]
+[ext_resource type="Script" path="res://scripts/moving.gd" id="3_awyq8"]
+[ext_resource type="Script" path="res://scripts/fpbutton.gd" id="3_rpiml"]
+[ext_resource type="Script" path="res://scripts/playbutton.gd" id="4_c7g60"]
+[ext_resource type="Script" path="res://scripts/cam.gd" id="6_2ygsh"]
+[ext_resource type="Script" path="res://scripts/margins.gd" id="6_6x4u1"]
+[ext_resource type="Script" path="res://scenes/confirmation.gd" id="6_24tdq"]
+[ext_resource type="Script" path="res://scripts/diedgui.gd" id="6_oaask"]
+[ext_resource type="Script" path="res://scenes/particles.gd" id="9_serl2"]
+[ext_resource type="Script" path="res://scenes/whoosh.gd" id="13_5jjbi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uoeo3"]
+bg_color = Color(0.0156863, 0.101961, 0.160784, 0.698039)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wprfi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jcs2k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ykd63"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7gj6y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i4bsj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6sdj"]
+size = Vector2(1920, 80)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5fmd"]
+bg_color = Color(0.141176, 0.243137, 0.309804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_me3rk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 0.101961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2jfp"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="main" type="Node2D"]
+
+[node name="gui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="scorebox" type="Node2D" parent="gui"]
+visible = false
+z_index = 100
+position = Vector2(1577, 38)
+skew = -0.0872665
+script = ExtResource("1_2k40g")
+
+[node name="PanelContainer" type="PanelContainer" parent="gui/scorebox"]
+offset_right = 250.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uoeo3")
+
+[node name="MarginContainer" type="MarginContainer" parent="gui/scorebox/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="gui/scorebox/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_bh6dg")
+theme_override_font_sizes/font_size = 40
+text = "00000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="scoreupdatetimer" type="Timer" parent="gui/scorebox/PanelContainer/MarginContainer"]
+wait_time = 0.1
+autostart = true
+
+[node name="Polygon2D" type="Polygon2D" parent="gui/scorebox/PanelContainer"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, 0, 250, 2.08165e-12, 250, 100, 2.08165e-12, 100)
+script = ExtResource("2_c4oqt")
+srad = 1
+
+[node name="Line2D" type="Line2D" parent="gui/scorebox/PanelContainer/Polygon2D"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/scorebox/PanelContainer/Polygon2D"]
+visible = false
+closed = true
+width = 1.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="mainmenu" type="Node2D" parent="gui"]
+z_index = 100
+position = Vector2(960, 540)
+skew = -0.0872665
+script = ExtResource("4_c7g60")
+
+[node name="playbutton" type="PanelContainer" parent="gui/mainmenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uoeo3")
+
+[node name="MarginContainer" type="MarginContainer" parent="gui/mainmenu/playbutton"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="gui/mainmenu/playbutton/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_bh6dg")
+theme_override_font_sizes/font_size = 40
+text = "play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="gui/mainmenu/playbutton"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, 0, 400, 2.08165e-12, 400, 200, 2.08165e-12, 200)
+script = ExtResource("3_rpiml")
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/playbutton/Polygon2D"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/playbutton/Polygon2D"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="Button2" type="Button" parent="gui/mainmenu/playbutton"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wprfi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jcs2k")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ykd63")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7gj6y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i4bsj")
+
+[node name="resetdata" type="PanelContainer" parent="gui/mainmenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 420.0
+offset_top = 400.0
+offset_right = 770.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uoeo3")
+
+[node name="MarginContainer" type="MarginContainer" parent="gui/mainmenu/resetdata"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="gui/mainmenu/resetdata/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_bh6dg")
+theme_override_font_sizes/font_size = 40
+text = "reset data"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="gui/mainmenu/resetdata"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, 0, 350, 2.08165e-12, 350, 100, 2.08165e-12, 100)
+script = ExtResource("3_rpiml")
+sig = "resetbutton"
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/resetdata/Polygon2D"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/resetdata/Polygon2D"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="Button2" type="Button" parent="gui/mainmenu/resetdata"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wprfi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jcs2k")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ykd63")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7gj6y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i4bsj")
+
+[node name="confirmation" type="PanelContainer" parent="gui/mainmenu"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 420.0
+offset_top = 270.0
+offset_right = 770.0
+offset_bottom = 370.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uoeo3")
+script = ExtResource("6_24tdq")
+
+[node name="MarginContainer" type="MarginContainer" parent="gui/mainmenu/confirmation"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="gui/mainmenu/confirmation/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_bh6dg")
+theme_override_font_sizes/font_size = 40
+text = "confirm"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="gui/mainmenu/confirmation"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, 0, 350, 2.08165e-12, 350, 100, 2.08165e-12, 100)
+script = ExtResource("3_rpiml")
+sig = "unsave"
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/confirmation/Polygon2D"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/confirmation/Polygon2D"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="Button2" type="Button" parent="gui/mainmenu/confirmation"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wprfi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jcs2k")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ykd63")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7gj6y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i4bsj")
+
+[node name="title" type="Node2D" parent="gui/mainmenu"]
+position = Vector2(-6.47416, 74.2827)
+
+[node name="k" type="Node2D" parent="gui/mainmenu/title"]
+position = Vector2(-44.6754, -38.1452)
+
+[node name="poly" type="Polygon2D" parent="gui/mainmenu/title/k"]
+position = Vector2(-200, -99.9999)
+polygon = PackedVector2Array(-38.0168, -278.44, -29.2511, -0.381989, 44.7987, -12.4278, 14.573, -78.6799, 97.1487, -16.4431, 130.636, -33.5081, 52.0979, -84.7029, 124.81, -115.821, 93.1469, -177.054, 4.87219, -150.955)
+script = ExtResource("2_c4oqt")
+rad = 15
+srad = 50000
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/title/k/poly"]
+closed = true
+width = 1.0
+default_color = Color(0.91, 0.439833, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/title/k/poly"]
+z_index = 2
+closed = true
+width = 1.0
+default_color = Color(0.0156863, 0.101961, 0.160784, 1)
+
+[node name="i" type="Node2D" parent="gui/mainmenu/title"]
+position = Vector2(121.299, -72.275)
+
+[node name="poly" type="Polygon2D" parent="gui/mainmenu/title/i"]
+position = Vector2(-199.776, -94.3591)
+polygon = PackedVector2Array(14.9719, -175.047, 29.9361, -125.477, 31.9238, -2.38968, 0, 0)
+script = ExtResource("2_c4oqt")
+rad = 15
+srad = 50000
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/title/i/poly"]
+closed = true
+width = 1.0
+default_color = Color(0.91, 0.439833, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/title/i/poly"]
+z_index = 2
+closed = true
+width = 1.0
+default_color = Color(0.0156863, 0.101961, 0.160784, 1)
+
+[node name="poly2" type="Polygon2D" parent="gui/mainmenu/title/i"]
+position = Vector2(-199.814, -105.401)
+polygon = PackedVector2Array(17.8976, -216.825, 77.8477, -204.779, 50.0104, -183.699, -34.6895, -175.668)
+script = ExtResource("2_c4oqt")
+rad = 15
+srad = 50000
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/title/i/poly2"]
+closed = true
+width = 1.0
+default_color = Color(0.91, 0.439833, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/title/i/poly2"]
+z_index = 2
+closed = true
+width = 1.0
+default_color = Color(0.0156863, 0.101961, 0.160784, 1)
+
+[node name="t" type="Node2D" parent="gui/mainmenu/title"]
+position = Vector2(249.687, -65.2483)
+
+[node name="poly" type="Polygon2D" parent="gui/mainmenu/title/t"]
+position = Vector2(-197.039, -171.653)
+polygon = PackedVector2Array(14.9719, -175.047, 34.3481, -164.626, 35.9564, -103.555, 115.699, -88.3361, 98.637, -53.2024, 34.1741, -82.3132, 31.6754, 38.1452, 42.5757, 62.2368, 63.7751, 14.0535, 63.5259, 74.2827, 25.476, 86.3285, -13.4995, 40.1528, 8.52405, -86.3285, -36.0385, -91.3476, -32.539, -131.5, 9.38309, -108.147)
+script = ExtResource("2_c4oqt")
+rad = 15
+srad = 50000
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/title/t/poly"]
+closed = true
+width = 1.0
+default_color = Color(0.91, 0.439833, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/title/t/poly"]
+z_index = 2
+closed = true
+width = 1.0
+default_color = Color(0.0156863, 0.101961, 0.160784, 1)
+
+[node name="e" type="Node2D" parent="gui/mainmenu/title"]
+position = Vector2(435.724, -54.2063)
+
+[node name="poly" type="Polygon2D" parent="gui/mainmenu/title/e"]
+position = Vector2(-197.039, -171.653)
+polygon = PackedVector2Array(-27.0508, -68.2597, 35.1365, -93.3552, 114.287, -49.1872, 90.175, -2.00763, -7.87488, 10.0382, 2.93799, 35.1337, 90.343, 36.7171, 109.338, 19.0726, 103.013, 57.2177, -28.0865, 81.3094, -52.3, -8.03055)
+script = ExtResource("2_c4oqt")
+rad = 15
+srad = 50000
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/title/e/poly"]
+closed = true
+width = 1.0
+default_color = Color(0.91, 0.439833, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/title/e/poly"]
+z_index = 2
+closed = true
+width = 1.0
+default_color = Color(0.0156863, 0.101961, 0.160784, 1)
+
+[node name="shape" type="Node2D" parent="gui/mainmenu/title"]
+position = Vector2(598.972, -275.047)
+
+[node name="poly" type="Polygon2D" parent="gui/mainmenu/title/shape"]
+position = Vector2(-197.039, -171.653)
+polygon = PackedVector2Array(33.588, 39.149, -16.1995, 48.1833, 0, 0)
+script = ExtResource("2_c4oqt")
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/title/shape/poly"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/title/shape/poly"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="shape2" type="Node2D" parent="gui/mainmenu/title"]
+position = Vector2(-287.526, -74.2827)
+rotation = -0.49995
+
+[node name="poly" type="Polygon2D" parent="gui/mainmenu/title/shape2"]
+position = Vector2(-197.039, -171.653)
+polygon = PackedVector2Array(45.7555, 50.1265, -30.5749, 58.7598, 0, 0, 9.69243, 26.9961)
+script = ExtResource("2_c4oqt")
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/title/shape2/poly"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/title/shape2/poly"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="shape3" type="Node2D" parent="gui/mainmenu/title"]
+position = Vector2(514.54, 211.806)
+rotation = 0.962807
+
+[node name="poly" type="Polygon2D" parent="gui/mainmenu/title/shape3"]
+position = Vector2(-197.039, -171.653)
+rotation = 0.152865
+polygon = PackedVector2Array(33.588, 39.149, -35.2445, 76.1105, 0, 0)
+script = ExtResource("2_c4oqt")
+
+[node name="Line2D" type="Line2D" parent="gui/mainmenu/title/shape3/poly"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/mainmenu/title/shape3/poly"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="died" type="Node2D" parent="gui"]
+visible = false
+z_index = 100
+position = Vector2(960, 540)
+skew = -0.0872665
+script = ExtResource("6_oaask")
+
+[node name="PanelContainer" type="PanelContainer" parent="gui/died"]
+offset_left = -200.0
+offset_top = -300.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.51
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uoeo3")
+
+[node name="MarginContainer" type="MarginContainer" parent="gui/died/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="gui/died/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_bh6dg")
+theme_override_font_sizes/font_size = 40
+text = "score:
+eiejrie"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="gui/died/PanelContainer"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, 0, 400, 2.08165e-12, 400, 300, 2.08165e-12, 300)
+script = ExtResource("2_c4oqt")
+
+[node name="Line2D" type="Line2D" parent="gui/died/PanelContainer/Polygon2D"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/died/PanelContainer/Polygon2D"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="playagain" type="PanelContainer" parent="gui/died"]
+offset_left = -200.0
+offset_top = 30.0
+offset_right = 200.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uoeo3")
+
+[node name="MarginContainer" type="MarginContainer" parent="gui/died/playagain"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="gui/died/playagain/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_bh6dg")
+theme_override_font_sizes/font_size = 40
+text = "again"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="gui/died/playagain"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, 0, 400, 2.08165e-12, 400, 160, 2.08165e-12, 160)
+script = ExtResource("3_rpiml")
+
+[node name="Line2D" type="Line2D" parent="gui/died/playagain/Polygon2D"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/died/playagain/Polygon2D"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="Button" type="Button" parent="gui/died/playagain"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wprfi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jcs2k")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ykd63")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7gj6y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i4bsj")
+
+[node name="return" type="PanelContainer" parent="gui/died"]
+offset_left = -200.0
+offset_top = 220.0
+offset_right = 200.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 0.57
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uoeo3")
+
+[node name="MarginContainer" type="MarginContainer" parent="gui/died/return"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="gui/died/return/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_bh6dg")
+theme_override_font_sizes/font_size = 40
+text = "menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="gui/died/return"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, 0, 400, 2.08165e-12, 400, 80, 2.08165e-12, 80)
+script = ExtResource("3_rpiml")
+sig = "title"
+
+[node name="Line2D" type="Line2D" parent="gui/died/return/Polygon2D"]
+closed = true
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="gui/died/return/Polygon2D"]
+z_index = 2
+closed = true
+width = 1.0
+
+[node name="Button" type="Button" parent="gui/died/return"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wprfi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jcs2k")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ykd63")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7gj6y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i4bsj")
+
+[node name="world" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="margins" type="Area2D" parent="world"]
+collision_layer = 2
+script = ExtResource("6_6x4u1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world/margins"]
+position = Vector2(960, 40)
+shape = SubResource("RectangleShape2D_w6sdj")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="world/margins"]
+position = Vector2(960, 1040)
+shape = SubResource("RectangleShape2D_w6sdj")
+
+[node name="backgroundcolor" type="Control" parent="world"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="back" type="Panel" parent="world/backgroundcolor"]
+z_index = -50
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1500.0
+offset_top = -500.0
+offset_right = 1500.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t5fmd")
+metadata/_edit_use_anchors_ = true
+
+[node name="border" type="Panel" parent="world/backgroundcolor"]
+z_index = -40
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.492593
+anchor_right = 0.5
+anchor_bottom = 0.492593
+offset_left = -964.0
+offset_top = -544.0
+offset_right = 964.0
+offset_bottom = 544.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_me3rk")
+metadata/_edit_use_anchors_ = true
+
+[node name="top" type="Panel" parent="world/backgroundcolor"]
+z_index = 20
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -1500.0
+offset_top = -2080.0
+offset_right = 1500.0
+offset_bottom = -1000.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l2jfp")
+
+[node name="bottom" type="Panel" parent="world/backgroundcolor"]
+z_index = 20
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -1500.0
+offset_top = -80.0
+offset_right = 1500.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l2jfp")
+
+[node name="ambient" type="Node2D" parent="world"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="world/ambient"]
+modulate = Color(0.2387, 0.55748, 0.77, 1)
+z_index = -5
+position = Vector2(2578, 525)
+amount = 800
+lifetime = 50.0
+preprocess = 20.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 540)
+direction = Vector2(-1, 2.08165e-12)
+spread = 10.0
+gravity = Vector2(-10, 2.08165e-12)
+initial_velocity_min = 111.11
+initial_velocity_max = 111.11
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+script = ExtResource("9_serl2")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="world/ambient"]
+modulate = Color(0.91, 0.439833, 0, 1)
+z_index = -5
+position = Vector2(2578, 525)
+amount = 300
+lifetime = 50.0
+preprocess = 20.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 540)
+direction = Vector2(-1, 2.08165e-12)
+spread = 10.0
+gravity = Vector2(-10, 2.08165e-12)
+initial_velocity_min = 111.11
+initial_velocity_max = 111.11
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+script = ExtResource("9_serl2")
+
+[node name="moving" type="Node2D" parent="."]
+script = ExtResource("3_awyq8")
+
+[node name="Timer" type="Timer" parent="moving"]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(960, 540)
+script = ExtResource("6_2ygsh")
+
+[node name="audio" type="Node" parent="."]
+script = ExtResource("13_5jjbi")
+
+[connection signal="timeout" from="gui/scorebox/PanelContainer/MarginContainer/scoreupdatetimer" to="gui/scorebox" method="_on_scoreupdatetimer_timeout"]
+[connection signal="button_down" from="gui/mainmenu/playbutton/Button2" to="gui/mainmenu/playbutton/Polygon2D" method="_on_button_button_down"]
+[connection signal="mouse_entered" from="gui/mainmenu/playbutton/Button2" to="gui/mainmenu/playbutton/Polygon2D" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="gui/mainmenu/playbutton/Button2" to="gui/mainmenu/playbutton/Polygon2D" method="_on_button_mouse_exited"]
+[connection signal="pressed" from="gui/mainmenu/playbutton/Button2" to="gui/mainmenu/playbutton/Polygon2D" method="_on_button_pressed"]
+[connection signal="button_down" from="gui/mainmenu/resetdata/Button2" to="gui/mainmenu/resetdata/Polygon2D" method="_on_button_button_down"]
+[connection signal="mouse_entered" from="gui/mainmenu/resetdata/Button2" to="gui/mainmenu/resetdata/Polygon2D" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="gui/mainmenu/resetdata/Button2" to="gui/mainmenu/resetdata/Polygon2D" method="_on_button_mouse_exited"]
+[connection signal="pressed" from="gui/mainmenu/resetdata/Button2" to="gui/mainmenu/resetdata/Polygon2D" method="_on_button_pressed"]
+[connection signal="button_down" from="gui/mainmenu/confirmation/Button2" to="gui/mainmenu/confirmation/Polygon2D" method="_on_button_button_down"]
+[connection signal="mouse_entered" from="gui/mainmenu/confirmation/Button2" to="gui/mainmenu/confirmation/Polygon2D" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="gui/mainmenu/confirmation/Button2" to="gui/mainmenu/confirmation/Polygon2D" method="_on_button_mouse_exited"]
+[connection signal="pressed" from="gui/mainmenu/confirmation/Button2" to="gui/mainmenu/confirmation/Polygon2D" method="_on_button_pressed"]
+[connection signal="button_down" from="gui/died/playagain/Button" to="gui/died/playagain/Polygon2D" method="_on_button_button_down"]
+[connection signal="button_up" from="gui/died/playagain/Button" to="gui/died/playagain/Polygon2D" method="_on_button_button_up"]
+[connection signal="mouse_entered" from="gui/died/playagain/Button" to="gui/died/playagain/Polygon2D" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="gui/died/playagain/Button" to="gui/died/playagain/Polygon2D" method="_on_button_mouse_exited"]
+[connection signal="pressed" from="gui/died/playagain/Button" to="gui/died" method="_on_button_pressed"]
+[connection signal="pressed" from="gui/died/playagain/Button" to="gui/died/playagain/Polygon2D" method="_on_button_pressed"]
+[connection signal="button_down" from="gui/died/return/Button" to="gui/died/return/Polygon2D" method="_on_button_button_down"]
+[connection signal="button_up" from="gui/died/return/Button" to="gui/died/return/Polygon2D" method="_on_button_button_up"]
+[connection signal="mouse_entered" from="gui/died/return/Button" to="gui/died/return/Polygon2D" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="gui/died/return/Button" to="gui/died/return/Polygon2D" method="_on_button_mouse_exited"]
+[connection signal="pressed" from="gui/died/return/Button" to="gui/died" method="_on_button_pressed"]
+[connection signal="pressed" from="gui/died/return/Button" to="gui/died/return/Polygon2D" method="_on_button_pressed"]
+[connection signal="body_entered" from="world/margins" to="world/margins" method="_on_body_entered"]
+[connection signal="timeout" from="moving/Timer" to="moving" method="_on_timer_timeout"]
