@@ -13,6 +13,7 @@ func open():
 	visible = true
 	pass
 func close():
+	visible = false
 	pass
 func clear():
 	pass
